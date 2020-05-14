@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yautumn.dao.mapper.UserMapper">
+<mapper namespace="com.yautumn.dao.user.UserMapper">
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
@@ -22,9 +22,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.User">
-    insert into t_user (id, user_name, user_password, 
+    insert into t_user (id, user_name, user_password,
       user_sex, user_birthday)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
       #{userSex,jdbcType=CHAR}, #{userBirthday,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.yautumn.common.entity.User">
