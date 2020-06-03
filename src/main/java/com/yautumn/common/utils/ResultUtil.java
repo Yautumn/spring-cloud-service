@@ -28,6 +28,10 @@ public class ResultUtil {
         this.resultData = resultData;
     }
 
+    public ResultUtil(Object resultData) {
+        this.resultData = resultData;
+    }
+
     public ResultUtil(String resultMsg) {
         this.resultMsg = resultMsg;
     }
@@ -42,6 +46,10 @@ public class ResultUtil {
 
     public static ResultUtil success(String resultMsg,Object resultData){
         return new ResultUtil(1,resultMsg,resultData);
+    }
+
+    public static ResultUtil success(Object resultData){
+        return new ResultUtil(1,"操作成功",resultData);
     }
 
     public static ResultUtil error(){
