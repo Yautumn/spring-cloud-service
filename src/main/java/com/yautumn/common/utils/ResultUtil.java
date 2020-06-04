@@ -12,6 +12,9 @@ public class ResultUtil {
     private String resultMsg;
     private Object resultData;
 
+    public ResultUtil() {
+    }
+
     public ResultUtil(int resultCode, String resultMsg, Object resultData) {
         this.resultCode = resultCode;
         this.resultMsg = resultMsg;
