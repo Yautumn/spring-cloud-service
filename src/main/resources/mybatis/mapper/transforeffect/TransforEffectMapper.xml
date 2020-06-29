@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.transforeffect.TransforEffectMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.TransforEffect">
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="incoming_page" jdbcType="VARCHAR" property="incomingPage" />
+    <result column="incoming_entrance" jdbcType="VARCHAR" property="incomingEntrance" />
+    <result column="is_new" jdbcType="VARCHAR" property="isNew" />
+    <result column="incoming_position" jdbcType="DOUBLE" property="incomingPosition" />
+    <result column="behavior" jdbcType="VARCHAR" property="behavior" />
+    <result column="is_success" jdbcType="VARCHAR" property="isSuccess" />
+    <result column="first_amount" jdbcType="INTEGER" property="firstAmount" />
+    <result column="total_amount" jdbcType="INTEGER" property="totalAmount" />
+    <result column="t_is_success" jdbcType="VARCHAR" property="tIsSuccess" />
+    <result column="t_first_amount" jdbcType="INTEGER" property="tFirstAmount" />
+    <result column="t_total_amount" jdbcType="VARCHAR" property="tTotalAmount" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yautumn.common.entity.TransforEffect">
+    insert into t_transfor_effect (bid, did, incoming_page, 
+      incoming_entrance, is_new, incoming_position, 
+      behavior, is_success, first_amount, 
+      total_amount, t_is_success, t_first_amount, 
+      t_total_amount)
+    values (#{bid,jdbcType=VARCHAR}, #{did,jdbcType=VARCHAR}, #{incomingPage,jdbcType=VARCHAR}, 
+      #{incomingEntrance,jdbcType=VARCHAR}, #{isNew,jdbcType=VARCHAR}, #{incomingPosition,jdbcType=DOUBLE}, 
+      #{behavior,jdbcType=VARCHAR}, #{isSuccess,jdbcType=VARCHAR}, #{firstAmount,jdbcType=INTEGER}, 
+      #{totalAmount,jdbcType=INTEGER}, #{tIsSuccess,jdbcType=VARCHAR}, #{tFirstAmount,jdbcType=INTEGER}, 
+      #{tTotalAmount,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.TransforEffect">
+    insert into t_transfor_effect (bid, did, incoming_page,
+      incoming_entrance, is_new, incoming_position,
+      behavior, is_success, first_amount,
+      total_amount, t_is_success, t_first_amount,
+      t_total_amount)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.bid,jdbcType=VARCHAR}, #{item.did,jdbcType=VARCHAR}, #{item.incomingPage,jdbcType=VARCHAR},
+      #{item.incomingEntrance,jdbcType=VARCHAR}, #{item.isNew,jdbcType=VARCHAR}, #{item.incomingPosition,jdbcType=DOUBLE},
+      #{item.behavior,jdbcType=VARCHAR}, #{item.isSuccess,jdbcType=VARCHAR}, #{item.firstAmount,jdbcType=INTEGER},
+      #{item.totalAmount,jdbcType=INTEGER}, #{item.tIsSuccess,jdbcType=VARCHAR}, #{item.tFirstAmount,jdbcType=INTEGER},
+      #{item.tTotalAmount,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    did=values(did)
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.TransforEffect">
+    insert into t_transfor_effect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+      <if test="incomingPage != null">
+        incoming_page,
+      </if>
+      <if test="incomingEntrance != null">
+        incoming_entrance,
+      </if>
+      <if test="isNew != null">
+        is_new,
+      </if>
+      <if test="incomingPosition != null">
+        incoming_position,
+      </if>
+      <if test="behavior != null">
+        behavior,
+      </if>
+      <if test="isSuccess != null">
+        is_success,
+      </if>
+      <if test="firstAmount != null">
+        first_amount,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+      <if test="tIsSuccess != null">
+        t_is_success,
+      </if>
+      <if test="tFirstAmount != null">
+        t_first_amount,
+      </if>
+      <if test="tTotalAmount != null">
+        t_total_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=VARCHAR},
+      </if>
+      <if test="incomingPage != null">
+        #{incomingPage,jdbcType=VARCHAR},
+      </if>
+      <if test="incomingEntrance != null">
+        #{incomingEntrance,jdbcType=VARCHAR},
+      </if>
+      <if test="isNew != null">
+        #{isNew,jdbcType=VARCHAR},
+      </if>
+      <if test="incomingPosition != null">
+        #{incomingPosition,jdbcType=DOUBLE},
+      </if>
+      <if test="behavior != null">
+        #{behavior,jdbcType=VARCHAR},
+      </if>
+      <if test="isSuccess != null">
+        #{isSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="firstAmount != null">
+        #{firstAmount,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="tIsSuccess != null">
+        #{tIsSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="tFirstAmount != null">
+        #{tFirstAmount,jdbcType=INTEGER},
+      </if>
+      <if test="tTotalAmount != null">
+        #{tTotalAmount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

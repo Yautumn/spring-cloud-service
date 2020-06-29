@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.userdid.UserDidMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.UserDid">
+    <id column="F_did" jdbcType="VARCHAR" property="fDid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user_did
+    where F_did = #{fDid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yautumn.common.entity.UserDid">
+    insert into t_user_did (F_did)
+    values (#{fDid,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.UserDid">
+    insert into t_user_did (F_did)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.fDid,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    F_did=values(F_did)
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.UserDid">
+    insert into t_user_did
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fDid != null">
+        F_did,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fDid != null">
+        #{fDid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

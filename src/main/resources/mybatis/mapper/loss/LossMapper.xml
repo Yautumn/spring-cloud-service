@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.loss.LossMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.Loss">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date_loss" jdbcType="VARCHAR" property="dateLoss" />
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="loss_page" jdbcType="VARCHAR" property="lossPage" />
+    <result column="time_loss" jdbcType="VARCHAR" property="timeLoss" />
+    <result column="prod_loss" jdbcType="VARCHAR" property="prodLoss" />
+    <result column="dateline" jdbcType="VARCHAR" property="dateline" />
+    <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="is_open" jdbcType="VARCHAR" property="isOpen" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, date_loss, bid, did, user_id, sex, user_level, age, amount, loss_page, time_loss, 
+    prod_loss, dateline, rate, is_open
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_loss
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_loss
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yautumn.common.entity.Loss" useGeneratedKeys="true" keyProperty="id">
+    insert into t_loss (id, date_loss, bid, 
+      did, user_id, sex, user_level, 
+      age, amount, loss_page, 
+      time_loss, prod_loss, dateline, 
+      rate, is_open)
+    values (#{id,jdbcType=INTEGER}, #{dateLoss,jdbcType=VARCHAR}, #{bid,jdbcType=VARCHAR}, 
+      #{did,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{userLevel,jdbcType=VARCHAR}, 
+      #{age,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, #{lossPage,jdbcType=VARCHAR}, 
+      #{timeLoss,jdbcType=VARCHAR}, #{prodLoss,jdbcType=VARCHAR}, #{dateline,jdbcType=VARCHAR}, 
+      #{rate,jdbcType=VARCHAR}, #{isOpen,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.Loss" useGeneratedKeys="true" keyProperty = "id">
+    insert into t_loss (date_loss, bid,
+      did, user_id, sex, user_level,
+      age, amount, loss_page,
+      time_loss, prod_loss, dateline,
+      rate, is_open)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.dateLoss,jdbcType=VARCHAR}, #{item.bid,jdbcType=VARCHAR},
+        #{item.did,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR}, #{item.userLevel,jdbcType=VARCHAR},
+        #{item.age,jdbcType=VARCHAR}, #{item.amount,jdbcType=DOUBLE}, #{item.lossPage,jdbcType=VARCHAR},
+        #{item.timeLoss,jdbcType=VARCHAR}, #{item.prodLoss,jdbcType=VARCHAR}, #{item.dateline,jdbcType=VARCHAR},
+        #{item.rate,jdbcType=VARCHAR}, #{item.isOpen,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    date_loss=values(date_loss),
+    did=values(did)
+  </insert>
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.Loss">
+    insert into t_loss
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dateLoss != null">
+        date_loss,
+      </if>
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="lossPage != null">
+        loss_page,
+      </if>
+      <if test="timeLoss != null">
+        time_loss,
+      </if>
+      <if test="prodLoss != null">
+        prod_loss,
+      </if>
+      <if test="dateline != null">
+        dateline,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="isOpen != null">
+        is_open,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dateLoss != null">
+        #{dateLoss,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null">
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="lossPage != null">
+        #{lossPage,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLoss != null">
+        #{timeLoss,jdbcType=VARCHAR},
+      </if>
+      <if test="prodLoss != null">
+        #{prodLoss,jdbcType=VARCHAR},
+      </if>
+      <if test="dateline != null">
+        #{dateline,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.Loss">
+    update t_loss
+    <set>
+      <if test="dateLoss != null">
+        date_loss = #{dateLoss,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null">
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        did = #{did,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        user_level = #{userLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="lossPage != null">
+        loss_page = #{lossPage,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLoss != null">
+        time_loss = #{timeLoss,jdbcType=VARCHAR},
+      </if>
+      <if test="prodLoss != null">
+        prod_loss = #{prodLoss,jdbcType=VARCHAR},
+      </if>
+      <if test="dateline != null">
+        dateline = #{dateline,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.Loss">
+    update t_loss
+    set date_loss = #{dateLoss,jdbcType=VARCHAR},
+      bid = #{bid,jdbcType=VARCHAR},
+      did = #{did,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      user_level = #{userLevel,jdbcType=VARCHAR},
+      age = #{age,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DOUBLE},
+      loss_page = #{lossPage,jdbcType=VARCHAR},
+      time_loss = #{timeLoss,jdbcType=VARCHAR},
+      prod_loss = #{prodLoss,jdbcType=VARCHAR},
+      dateline = #{dateline,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=VARCHAR},
+      is_open = #{isOpen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

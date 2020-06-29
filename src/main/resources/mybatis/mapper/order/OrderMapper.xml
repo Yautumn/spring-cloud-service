@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.order.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.Order">
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="consumer_name" jdbcType="VARCHAR" property="consumerName" />
+    <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="wallet_id" jdbcType="VARCHAR" property="walletId" />
+    <result column="tel_num" jdbcType="VARCHAR" property="telNum" />
+    <result column="product_line" jdbcType="VARCHAR" property="productLine" />
+    <result column="event1" jdbcType="VARCHAR" property="event1" />
+    <result column="event2" jdbcType="VARCHAR" property="event2" />
+    <result column="event3" jdbcType="VARCHAR" property="event3" />
+    <result column="event4" jdbcType="VARCHAR" property="event4" />
+    <result column="event5" jdbcType="VARCHAR" property="event5" />
+    <result column="priority" jdbcType="VARCHAR" property="priority" />
+    <result column="urge_times" jdbcType="VARCHAR" property="urgeTimes" />
+    <result column="urge_cause" jdbcType="VARCHAR" property="urgeCause" />
+    <result column="trade_merchants" jdbcType="VARCHAR" property="tradeMerchants" />
+    <result column="source_channel" jdbcType="VARCHAR" property="sourceChannel" />
+    <result column="comm_type" jdbcType="VARCHAR" property="commType" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="creat_job" jdbcType="VARCHAR" property="creatJob" />
+    <result column="accept_job" jdbcType="VARCHAR" property="acceptJob" />
+    <result column="acceptor" jdbcType="VARCHAR" property="acceptor" />
+    <result column="is_need_callback" jdbcType="VARCHAR" property="isNeedCallback" />
+    <result column="callback_num" jdbcType="VARCHAR" property="callbackNum" />
+    <result column="comm_times" jdbcType="VARCHAR" property="commTimes" />
+    <result column="quesstion_desc" jdbcType="VARCHAR" property="quesstionDesc" />
+    <result column="resolve" jdbcType="VARCHAR" property="resolve" />
+    <result column="is_message" jdbcType="VARCHAR" property="isMessage" />
+    <result column="is_forward" jdbcType="VARCHAR" property="isForward" />
+    <result column="satisfaction" jdbcType="VARCHAR" property="satisfaction" />
+    <result column="is_resolve" jdbcType="VARCHAR" property="isResolve" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="pay_way" jdbcType="VARCHAR" property="payWay" />
+    <result column="safe_card_status" jdbcType="VARCHAR" property="safeCardStatus" />
+    <result column="new_card_binding" jdbcType="VARCHAR" property="newCardBinding" />
+    <result column="new_card_subscribe" jdbcType="VARCHAR" property="newCardSubscribe" />
+    <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
+    <result column="operating_terminal" jdbcType="VARCHAR" property="operatingTerminal" />
+    <result column="active_name" jdbcType="VARCHAR" property="activeName" />
+    <result column="is_called" jdbcType="VARCHAR" property="isCalled" />
+    <result column="is_email" jdbcType="VARCHAR" property="isEmail" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yautumn.common.entity.Order">
+    insert into t_order (order_id, contacts, province, 
+      city, consumer_name, did, 
+      wallet_id, tel_num, product_line, 
+      event1, event2, event3, 
+      event4, event5, priority, 
+      urge_times, urge_cause, trade_merchants, 
+      source_channel, comm_type, order_status, 
+      creat_job, accept_job, acceptor, 
+      is_need_callback, callback_num, comm_times, 
+      quesstion_desc, resolve, is_message, 
+      is_forward, satisfaction, is_resolve, 
+      creater, create_time, update_time, 
+      end_time, bank_name, pay_way, 
+      safe_card_status, new_card_binding, new_card_subscribe, 
+      error_msg, operating_terminal, active_name, 
+      is_called, is_email, email, 
+      level)
+    values (#{orderId,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{consumerName,jdbcType=VARCHAR}, #{did,jdbcType=VARCHAR}, 
+      #{walletId,jdbcType=VARCHAR}, #{telNum,jdbcType=VARCHAR}, #{productLine,jdbcType=VARCHAR}, 
+      #{event1,jdbcType=VARCHAR}, #{event2,jdbcType=VARCHAR}, #{event3,jdbcType=VARCHAR}, 
+      #{event4,jdbcType=VARCHAR}, #{event5,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, 
+      #{urgeTimes,jdbcType=VARCHAR}, #{urgeCause,jdbcType=VARCHAR}, #{tradeMerchants,jdbcType=VARCHAR}, 
+      #{sourceChannel,jdbcType=VARCHAR}, #{commType,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{creatJob,jdbcType=VARCHAR}, #{acceptJob,jdbcType=VARCHAR}, #{acceptor,jdbcType=VARCHAR}, 
+      #{isNeedCallback,jdbcType=VARCHAR}, #{callbackNum,jdbcType=VARCHAR}, #{commTimes,jdbcType=VARCHAR}, 
+      #{quesstionDesc,jdbcType=VARCHAR}, #{resolve,jdbcType=VARCHAR}, #{isMessage,jdbcType=VARCHAR}, 
+      #{isForward,jdbcType=VARCHAR}, #{satisfaction,jdbcType=VARCHAR}, #{isResolve,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{payWay,jdbcType=VARCHAR}, 
+      #{safeCardStatus,jdbcType=VARCHAR}, #{newCardBinding,jdbcType=VARCHAR}, #{newCardSubscribe,jdbcType=VARCHAR}, 
+      #{errorMsg,jdbcType=VARCHAR}, #{operatingTerminal,jdbcType=VARCHAR}, #{activeName,jdbcType=VARCHAR}, 
+      #{isCalled,jdbcType=VARCHAR}, #{isEmail,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.Order">
+    insert into t_order (order_id, contacts, province,
+      city, consumer_name, did,
+      wallet_id, tel_num, product_line,
+      event1, event2, event3,
+      event4, event5, priority,
+      urge_times, urge_cause, trade_merchants,
+      source_channel, comm_type, order_status,
+      creat_job, accept_job, acceptor,
+      is_need_callback, callback_num, comm_times,
+      quesstion_desc, resolve, is_message,
+      is_forward, satisfaction, is_resolve,
+      creater, create_time, update_time,
+      end_time, bank_name, pay_way,
+      safe_card_status, new_card_binding, new_card_subscribe,
+      error_msg, operating_terminal, active_name,
+      is_called, is_email, email,
+      level)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.orderId,jdbcType=VARCHAR}, #{item.contacts,jdbcType=VARCHAR}, #{item.province,jdbcType=VARCHAR},
+      #{item.city,jdbcType=VARCHAR}, #{item.consumerName,jdbcType=VARCHAR}, #{item.did,jdbcType=VARCHAR},
+      #{item.walletId,jdbcType=VARCHAR}, #{item.telNum,jdbcType=VARCHAR}, #{item.productLine,jdbcType=VARCHAR},
+      #{item.event1,jdbcType=VARCHAR}, #{item.event2,jdbcType=VARCHAR}, #{item.event3,jdbcType=VARCHAR},
+      #{item.event4,jdbcType=VARCHAR}, #{item.event5,jdbcType=VARCHAR}, #{item.priority,jdbcType=VARCHAR},
+      #{item.urgeTimes,jdbcType=VARCHAR}, #{item.urgeCause,jdbcType=VARCHAR}, #{item.tradeMerchants,jdbcType=VARCHAR},
+      #{item.sourceChannel,jdbcType=VARCHAR}, #{item.commType,jdbcType=VARCHAR}, #{item.orderStatus,jdbcType=VARCHAR},
+      #{item.creatJob,jdbcType=VARCHAR}, #{item.acceptJob,jdbcType=VARCHAR}, #{item.acceptor,jdbcType=VARCHAR},
+      #{item.isNeedCallback,jdbcType=VARCHAR}, #{item.callbackNum,jdbcType=VARCHAR}, #{item.commTimes,jdbcType=VARCHAR},
+      #{item.quesstionDesc,jdbcType=VARCHAR}, #{item.resolve,jdbcType=VARCHAR}, #{item.isMessage,jdbcType=VARCHAR},
+      #{item.isForward,jdbcType=VARCHAR}, #{item.satisfaction,jdbcType=VARCHAR}, #{item.isResolve,jdbcType=VARCHAR},
+      #{item.creater,jdbcType=VARCHAR}, #{item.createTime,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=VARCHAR},
+      #{item.endTime,jdbcType=VARCHAR}, #{item.bankName,jdbcType=VARCHAR}, #{item.payWay,jdbcType=VARCHAR},
+      #{item.safeCardStatus,jdbcType=VARCHAR}, #{item.newCardBinding,jdbcType=VARCHAR}, #{item.newCardSubscribe,jdbcType=VARCHAR},
+      #{item.errorMsg,jdbcType=VARCHAR}, #{item.operatingTerminal,jdbcType=VARCHAR}, #{item.activeName,jdbcType=VARCHAR},
+      #{item.isCalled,jdbcType=VARCHAR}, #{item.isEmail,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR},
+      #{item.level,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    did=values(did)
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.Order">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="consumerName != null">
+        consumer_name,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+      <if test="walletId != null">
+        wallet_id,
+      </if>
+      <if test="telNum != null">
+        tel_num,
+      </if>
+      <if test="productLine != null">
+        product_line,
+      </if>
+      <if test="event1 != null">
+        event1,
+      </if>
+      <if test="event2 != null">
+        event2,
+      </if>
+      <if test="event3 != null">
+        event3,
+      </if>
+      <if test="event4 != null">
+        event4,
+      </if>
+      <if test="event5 != null">
+        event5,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="urgeTimes != null">
+        urge_times,
+      </if>
+      <if test="urgeCause != null">
+        urge_cause,
+      </if>
+      <if test="tradeMerchants != null">
+        trade_merchants,
+      </if>
+      <if test="sourceChannel != null">
+        source_channel,
+      </if>
+      <if test="commType != null">
+        comm_type,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="creatJob != null">
+        creat_job,
+      </if>
+      <if test="acceptJob != null">
+        accept_job,
+      </if>
+      <if test="acceptor != null">
+        acceptor,
+      </if>
+      <if test="isNeedCallback != null">
+        is_need_callback,
+      </if>
+      <if test="callbackNum != null">
+        callback_num,
+      </if>
+      <if test="commTimes != null">
+        comm_times,
+      </if>
+      <if test="quesstionDesc != null">
+        quesstion_desc,
+      </if>
+      <if test="resolve != null">
+        resolve,
+      </if>
+      <if test="isMessage != null">
+        is_message,
+      </if>
+      <if test="isForward != null">
+        is_forward,
+      </if>
+      <if test="satisfaction != null">
+        satisfaction,
+      </if>
+      <if test="isResolve != null">
+        is_resolve,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="payWay != null">
+        pay_way,
+      </if>
+      <if test="safeCardStatus != null">
+        safe_card_status,
+      </if>
+      <if test="newCardBinding != null">
+        new_card_binding,
+      </if>
+      <if test="newCardSubscribe != null">
+        new_card_subscribe,
+      </if>
+      <if test="errorMsg != null">
+        error_msg,
+      </if>
+      <if test="operatingTerminal != null">
+        operating_terminal,
+      </if>
+      <if test="activeName != null">
+        active_name,
+      </if>
+      <if test="isCalled != null">
+        is_called,
+      </if>
+      <if test="isEmail != null">
+        is_email,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerName != null">
+        #{consumerName,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=VARCHAR},
+      </if>
+      <if test="walletId != null">
+        #{walletId,jdbcType=VARCHAR},
+      </if>
+      <if test="telNum != null">
+        #{telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="productLine != null">
+        #{productLine,jdbcType=VARCHAR},
+      </if>
+      <if test="event1 != null">
+        #{event1,jdbcType=VARCHAR},
+      </if>
+      <if test="event2 != null">
+        #{event2,jdbcType=VARCHAR},
+      </if>
+      <if test="event3 != null">
+        #{event3,jdbcType=VARCHAR},
+      </if>
+      <if test="event4 != null">
+        #{event4,jdbcType=VARCHAR},
+      </if>
+      <if test="event5 != null">
+        #{event5,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="urgeTimes != null">
+        #{urgeTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="urgeCause != null">
+        #{urgeCause,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMerchants != null">
+        #{tradeMerchants,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceChannel != null">
+        #{sourceChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="commType != null">
+        #{commType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creatJob != null">
+        #{creatJob,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptJob != null">
+        #{acceptJob,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptor != null">
+        #{acceptor,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedCallback != null">
+        #{isNeedCallback,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackNum != null">
+        #{callbackNum,jdbcType=VARCHAR},
+      </if>
+      <if test="commTimes != null">
+        #{commTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="quesstionDesc != null">
+        #{quesstionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resolve != null">
+        #{resolve,jdbcType=VARCHAR},
+      </if>
+      <if test="isMessage != null">
+        #{isMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="isForward != null">
+        #{isForward,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfaction != null">
+        #{satisfaction,jdbcType=VARCHAR},
+      </if>
+      <if test="isResolve != null">
+        #{isResolve,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payWay != null">
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="safeCardStatus != null">
+        #{safeCardStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="newCardBinding != null">
+        #{newCardBinding,jdbcType=VARCHAR},
+      </if>
+      <if test="newCardSubscribe != null">
+        #{newCardSubscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingTerminal != null">
+        #{operatingTerminal,jdbcType=VARCHAR},
+      </if>
+      <if test="activeName != null">
+        #{activeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isCalled != null">
+        #{isCalled,jdbcType=VARCHAR},
+      </if>
+      <if test="isEmail != null">
+        #{isEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

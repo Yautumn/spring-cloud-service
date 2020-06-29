@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.robot.RobotMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.Robot">
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="coming_page" jdbcType="VARCHAR" property="comingPage" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="is_score_robot" jdbcType="VARCHAR" property="isScoreRobot" />
+    <result column="robot_is_solve" jdbcType="VARCHAR" property="robotIsSolve" />
+    <result column="is_artificial" jdbcType="VARCHAR" property="isArtificial" />
+    <result column="artificial_is_solve" jdbcType="VARCHAR" property="artificialIsSolve" />
+    <result column="artificial_score" jdbcType="VARCHAR" property="artificialScore" />
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="is_work_time" jdbcType="VARCHAR" property="isWorkTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yautumn.common.entity.Robot">
+    insert into t_robot (group_id, product, coming_page, 
+      create_time, is_score_robot, robot_is_solve, 
+      is_artificial, artificial_is_solve, artificial_score, 
+      bid, user_name, service_name, 
+      is_work_time)
+    values (#{groupId,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{comingPage,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{isScoreRobot,jdbcType=VARCHAR}, #{robotIsSolve,jdbcType=VARCHAR}, 
+      #{isArtificial,jdbcType=VARCHAR}, #{artificialIsSolve,jdbcType=VARCHAR}, #{artificialScore,jdbcType=VARCHAR}, 
+      #{bid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{isWorkTime,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.Robot">
+    insert into t_robot (group_id, product, coming_page,
+      create_time, is_score_robot, robot_is_solve,
+      is_artificial, artificial_is_solve, artificial_score,
+      bid, user_name, service_name,
+      is_work_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.groupId,jdbcType=VARCHAR}, #{item.product,jdbcType=VARCHAR}, #{item.comingPage,jdbcType=VARCHAR},
+      #{item.createTime,jdbcType=VARCHAR}, #{item.isScoreRobot,jdbcType=VARCHAR}, #{item.robotIsSolve,jdbcType=VARCHAR},
+      #{item.isArtificial,jdbcType=VARCHAR}, #{item.artificialIsSolve,jdbcType=VARCHAR}, #{item.artificialScore,jdbcType=VARCHAR},
+      #{item.bid,jdbcType=VARCHAR}, #{item.userName,jdbcType=VARCHAR}, #{item.serviceName,jdbcType=VARCHAR},
+      #{item.isWorkTime,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    did=values(did)
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.Robot">
+    insert into t_robot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+      <if test="comingPage != null">
+        coming_page,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isScoreRobot != null">
+        is_score_robot,
+      </if>
+      <if test="robotIsSolve != null">
+        robot_is_solve,
+      </if>
+      <if test="isArtificial != null">
+        is_artificial,
+      </if>
+      <if test="artificialIsSolve != null">
+        artificial_is_solve,
+      </if>
+      <if test="artificialScore != null">
+        artificial_score,
+      </if>
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="isWorkTime != null">
+        is_work_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="comingPage != null">
+        #{comingPage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isScoreRobot != null">
+        #{isScoreRobot,jdbcType=VARCHAR},
+      </if>
+      <if test="robotIsSolve != null">
+        #{robotIsSolve,jdbcType=VARCHAR},
+      </if>
+      <if test="isArtificial != null">
+        #{isArtificial,jdbcType=VARCHAR},
+      </if>
+      <if test="artificialIsSolve != null">
+        #{artificialIsSolve,jdbcType=VARCHAR},
+      </if>
+      <if test="artificialScore != null">
+        #{artificialScore,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null">
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="isWorkTime != null">
+        #{isWorkTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

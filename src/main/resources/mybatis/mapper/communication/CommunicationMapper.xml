@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.communication.CommunicationMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.Communication">
+    <result column="comm_id" jdbcType="VARCHAR" property="commId" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="tel_num" jdbcType="VARCHAR" property="telNum" />
+    <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="comm_channel" jdbcType="VARCHAR" property="commChannel" />
+    <result column="comm_type" jdbcType="VARCHAR" property="commType" />
+    <result column="comm_result" jdbcType="VARCHAR" property="commResult" />
+    <result column="fault_type" jdbcType="VARCHAR" property="faultType" />
+    <result column="comm_sign" jdbcType="VARCHAR" property="commSign" />
+    <result column="satisfaction" jdbcType="VARCHAR" property="satisfaction" />
+    <result column="is_solve" jdbcType="VARCHAR" property="isSolve" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="call_time" jdbcType="INTEGER" property="callTime" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yautumn.common.entity.Communication">
+    insert into t_communication (comm_id, contacts, tel_num, 
+      did, comm_channel, comm_type, 
+      comm_result, fault_type, comm_sign, 
+      satisfaction, is_solve, start_time, 
+      end_time, call_time, creater, 
+      create_time, order_id)
+    values (#{commId,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{telNum,jdbcType=VARCHAR}, 
+      #{did,jdbcType=VARCHAR}, #{commChannel,jdbcType=VARCHAR}, #{commType,jdbcType=VARCHAR}, 
+      #{commResult,jdbcType=VARCHAR}, #{faultType,jdbcType=VARCHAR}, #{commSign,jdbcType=VARCHAR}, 
+      #{satisfaction,jdbcType=VARCHAR}, #{isSolve,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{callTime,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.Communication">
+    insert into t_communication (comm_id, contacts, tel_num,
+      did, comm_channel, comm_type,
+      comm_result, fault_type, comm_sign,
+      satisfaction, is_solve, start_time,
+      end_time, call_time, creater,
+      create_time, order_id)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.commId,jdbcType=VARCHAR}, #{item.contacts,jdbcType=VARCHAR}, #{item.telNum,jdbcType=VARCHAR},
+      #{item.did,jdbcType=VARCHAR}, #{item.commChannel,jdbcType=VARCHAR}, #{item.commType,jdbcType=VARCHAR},
+      #{item.commResult,jdbcType=VARCHAR}, #{item.faultType,jdbcType=VARCHAR}, #{item.commSign,jdbcType=VARCHAR},
+      #{item.satisfaction,jdbcType=VARCHAR}, #{item.isSolve,jdbcType=VARCHAR}, #{item.startTime,jdbcType=VARCHAR},
+      #{item.endTime,jdbcType=VARCHAR}, #{item.callTime,jdbcType=INTEGER}, #{item.creater,jdbcType=VARCHAR},
+      #{item.createTime,jdbcType=VARCHAR}, #{item.orderId,jdbcType=VARCHAR})
+    </foreach>
+      ON DUPLICATE KEY UPDATE
+      create_time=values(create_time),
+      did=values(did)
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.Communication">
+    insert into t_communication
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commId != null">
+        comm_id,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="telNum != null">
+        tel_num,
+      </if>
+      <if test="did != null">
+        did,
+      </if>
+      <if test="commChannel != null">
+        comm_channel,
+      </if>
+      <if test="commType != null">
+        comm_type,
+      </if>
+      <if test="commResult != null">
+        comm_result,
+      </if>
+      <if test="faultType != null">
+        fault_type,
+      </if>
+      <if test="commSign != null">
+        comm_sign,
+      </if>
+      <if test="satisfaction != null">
+        satisfaction,
+      </if>
+      <if test="isSolve != null">
+        is_solve,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="callTime != null">
+        call_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commId != null">
+        #{commId,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="telNum != null">
+        #{telNum,jdbcType=VARCHAR},
+      </if>
+      <if test="did != null">
+        #{did,jdbcType=VARCHAR},
+      </if>
+      <if test="commChannel != null">
+        #{commChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="commType != null">
+        #{commType,jdbcType=VARCHAR},
+      </if>
+      <if test="commResult != null">
+        #{commResult,jdbcType=VARCHAR},
+      </if>
+      <if test="faultType != null">
+        #{faultType,jdbcType=VARCHAR},
+      </if>
+      <if test="commSign != null">
+        #{commSign,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfaction != null">
+        #{satisfaction,jdbcType=VARCHAR},
+      </if>
+      <if test="isSolve != null">
+        #{isSolve,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="callTime != null">
+        #{callTime,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
