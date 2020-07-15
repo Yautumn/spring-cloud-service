@@ -25,7 +25,7 @@ public class FileController {
             return ResultUtil.error("上传失败，请选择文件");
         }
         String fileName = file.getOriginalFilename();
-        String filePath = "F:\\SourceTree\\file\\";
+        String filePath = "/Users/yautumn/fileupload/";
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
@@ -38,7 +38,7 @@ public class FileController {
 
     @PostMapping("/file/list")
     public ResultUtil getFileList(){
-        String basePath = "F:\\SourceTree\\file\\";
+        String basePath = "/Users/yautumn/fileupload/";
         String[] fileArr=new File(basePath).list();
         List<String> files = new ArrayList<>();
         for (int i = 0; i < fileArr.length; i++) {
