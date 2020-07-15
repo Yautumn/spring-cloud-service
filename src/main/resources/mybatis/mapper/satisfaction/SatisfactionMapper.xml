@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yautumn.dao.satisfaction.SatisfactionMapper">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.Satisfaction">
+    <result column="date_time" jdbcType="VARCHAR" property="dateTime" />
+    <result column="product_line" jdbcType="VARCHAR" property="productLine" />
+    <result column="come_from" jdbcType="VARCHAR" property="comeFrom" />
+    <result column="event1" jdbcType="VARCHAR" property="event1" />
+    <result column="event2" jdbcType="VARCHAR" property="event2" />
+    <result column="event3" jdbcType="VARCHAR" property="event3" />
+    <result column="event4" jdbcType="VARCHAR" property="event4" />
+    <result column="event5" jdbcType="VARCHAR" property="event5" />
+    <result column="comm_id" jdbcType="VARCHAR" property="commId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="employee" jdbcType="VARCHAR" property="employee" />
+    <result column="quesstion_desc" jdbcType="VARCHAR" property="quesstionDesc" />
+    <result column="resolve" jdbcType="VARCHAR" property="resolve" />
+    <result column="is_forward" jdbcType="VARCHAR" property="isForward" />
+    <result column="satisfaction" jdbcType="VARCHAR" property="satisfaction" />
+    <result column="is_resolve" jdbcType="VARCHAR" property="isResolve" />
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="tel_num" jdbcType="VARCHAR" property="telNum" />
+    <result column="wallet_id" jdbcType="VARCHAR" property="walletId" />
+    <result column="priority" jdbcType="VARCHAR" property="priority" />
+    <result column="urge_times" jdbcType="VARCHAR" property="urgeTimes" />
+    <result column="comm_channel" jdbcType="VARCHAR" property="commChannel" />
+    <result column="incoming" jdbcType="VARCHAR" property="incoming" />
+    <result column="is_invite_evaluate" jdbcType="VARCHAR" property="isInviteEvaluate" />
+    <result column="forward_product_line" jdbcType="VARCHAR" property="forwardProductLine" />
+    <result column="24_bid" jdbcType="VARCHAR" property="bid24" />
+    <result column="48_bid" jdbcType="VARCHAR" property="bid48" />
+    <result column="24_mobile" jdbcType="VARCHAR" property="mobile24" />
+    <result column="48_mobile" jdbcType="VARCHAR" property="mobile48" />
+    <result column="comm_type" jdbcType="VARCHAR" property="commType" />
+    <result column="is_update" jdbcType="VARCHAR" property="isUpdate" />
+    <result column="create_post" jdbcType="VARCHAR" property="createPost" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yautumn.common.entity.Satisfaction">
+    insert into t_satisfaction (date_time, product_line, come_from,
+      event1, event2, event3,
+      event4, event5, comm_id,
+      order_id, employee, quesstion_desc,
+      resolve, is_forward, satisfaction,
+      is_resolve, bid, tel_num,
+      wallet_id, priority, urge_times,
+      comm_channel, incoming, is_invite_evaluate,
+      forward_product_line, 24_bid, 48_bid,
+      24_mobile, 48_mobile, comm_type,
+      is_update, create_post)
+    values (#{dateTime,jdbcType=VARCHAR}, #{productLine,jdbcType=VARCHAR}, #{comeFrom,jdbcType=VARCHAR},
+      #{event1,jdbcType=VARCHAR}, #{event2,jdbcType=VARCHAR}, #{event3,jdbcType=VARCHAR},
+      #{event4,jdbcType=VARCHAR}, #{event5,jdbcType=VARCHAR}, #{commId,jdbcType=VARCHAR},
+      #{orderId,jdbcType=VARCHAR}, #{employee,jdbcType=VARCHAR}, #{quesstionDesc,jdbcType=VARCHAR},
+      #{resolve,jdbcType=VARCHAR}, #{isForward,jdbcType=VARCHAR}, #{satisfaction,jdbcType=VARCHAR},
+      #{isResolve,jdbcType=VARCHAR}, #{bid,jdbcType=VARCHAR}, #{telNum,jdbcType=VARCHAR},
+      #{walletId,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{urgeTimes,jdbcType=VARCHAR},
+      #{commChannel,jdbcType=VARCHAR}, #{incoming,jdbcType=VARCHAR}, #{isInviteEvaluate,jdbcType=VARCHAR},
+      #{forwardProductLine,jdbcType=VARCHAR}, #{24Bid,jdbcType=VARCHAR}, #{48Bid,jdbcType=VARCHAR},
+      #{24Mobile,jdbcType=VARCHAR}, #{48Mobile,jdbcType=VARCHAR}, #{commType,jdbcType=VARCHAR},
+      #{isUpdate,jdbcType=VARCHAR}, #{createPost,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertForeach" parameterType="com.yautumn.common.entity.Satisfaction">
+    insert into t_satisfaction (date_time, product_line, come_from,
+      event1, event2, event3,
+      event4, event5, comm_id,
+      order_id, employee, quesstion_desc,
+      resolve, is_forward, satisfaction,
+      is_resolve, bid, tel_num,
+      wallet_id, priority, urge_times,
+      comm_channel, incoming, is_invite_evaluate,
+      forward_product_line, 24_bid, 48_bid,
+      24_mobile, 48_mobile, comm_type,
+      is_update, create_post)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.dateTime,jdbcType=VARCHAR}, #{item.productLine,jdbcType=VARCHAR}, #{item.comeFrom,jdbcType=VARCHAR},
+      #{item.event1,jdbcType=VARCHAR}, #{item.event2,jdbcType=VARCHAR}, #{item.event3,jdbcType=VARCHAR},
+      #{item.event4,jdbcType=VARCHAR}, #{item.event5,jdbcType=VARCHAR}, #{item.commId,jdbcType=VARCHAR},
+      #{item.orderId,jdbcType=VARCHAR}, #{item.employee,jdbcType=VARCHAR}, #{item.quesstionDesc,jdbcType=VARCHAR},
+      #{item.resolve,jdbcType=VARCHAR}, #{item.isForward,jdbcType=VARCHAR}, #{item.satisfaction,jdbcType=VARCHAR},
+      #{item.isResolve,jdbcType=VARCHAR}, #{item.bid,jdbcType=VARCHAR}, #{item.telNum,jdbcType=VARCHAR},
+      #{item.walletId,jdbcType=VARCHAR}, #{item.priority,jdbcType=VARCHAR}, #{item.urgeTimes,jdbcType=VARCHAR},
+      #{item.commChannel,jdbcType=VARCHAR}, #{item.incoming,jdbcType=VARCHAR}, #{item.isInviteEvaluate,jdbcType=VARCHAR},
+      #{item.forwardProductLine,jdbcType=VARCHAR}, #{item.24Bid,jdbcType=VARCHAR}, #{item.48Bid,jdbcType=VARCHAR},
+      #{item.24Mobile,jdbcType=VARCHAR}, #{item.48Mobile,jdbcType=VARCHAR}, #{item.commType,jdbcType=VARCHAR},
+      #{item.isUpdate,jdbcType=VARCHAR}, #{item.createPost,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    did=values(did)
+  </insert>
+
+</mapper>
