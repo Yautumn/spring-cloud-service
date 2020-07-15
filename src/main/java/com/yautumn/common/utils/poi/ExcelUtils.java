@@ -1,6 +1,5 @@
 package com.yautumn.common.utils.poi;
 
-import com.yautumn.common.entity.Loss;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,15 +12,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ExcelReaderX {
+public class ExcelUtils {
 
-    private static Logger logger = Logger.getLogger(ExcelReaderX.class.getName()); // 日志打印类
+    private static Logger logger = Logger.getLogger(ExcelUtils.class.getName());
 
     private static final String XLS = "xls";
     private static final String XLSX = "xlsx";
@@ -48,7 +45,7 @@ public class ExcelReaderX {
      * @param fileName 要读取的Excel文件所在路径
      * @return 读取结果列表，读取失败时返回null
      */
-    public static List<Loss> readExcel(String fileName) {
+    public static List<Row> readExcel(String fileName) {
 
         Workbook workbook = null;
         FileInputStream inputStream = null;
@@ -68,9 +65,9 @@ public class ExcelReaderX {
             workbook = getWorkbook(inputStream, fileType);
 
             // 读取excel中的数据
-            List<Loss> resultDataList = parseExcel(workbook);
+            List<Row> rowList = parseExcel(workbook);
 
-            return resultDataList;
+            return rowList;
         } catch (Exception e) {
             logger.warning("解析Excel失败，文件名：" + fileName + " 错误信息：" + e.getMessage());
             return null;
@@ -89,13 +86,8 @@ public class ExcelReaderX {
         }
     }
 
-    /**
-     * 解析Excel数据
-     * @param workbook Excel工作簿对象
-     * @return 解析结果
-     */
-    private static List<Loss> parseExcel(Workbook workbook) {
-        List<Loss> resultDataList = new ArrayList<>();
+    public static List<Row> parseExcel(Workbook workbook) {
+            List<Row> rowList = new ArrayList<>();
         // 解析sheet
         for (int sheetNum = 0; sheetNum < workbook.getNumberOfSheets(); sheetNum++) {
             Sheet sheet = workbook.getSheetAt(sheetNum);
@@ -121,18 +113,10 @@ public class ExcelReaderX {
                 if (null == row) {
                     continue;
                 }
-
-                Loss resultData = convertRowToData(row);
-                if (null == resultData) {
-                    logger.warning("第 " + row.getRowNum() + "行数据不合法，已忽略！");
-                    continue;
-                }
-                resultDataList.add(resultData);
+                rowList.add(row);
             }
         }
-
-        return resultDataList;
-
+        return rowList;
     }
 
     /**
@@ -140,7 +124,7 @@ public class ExcelReaderX {
      * @param cell
      * @return
      */
-    private static String convertCellValueToString(Cell cell) {
+    public static String convertCellValueToString(Cell cell) {
         if(cell==null){
             return null;
         }
@@ -170,81 +154,5 @@ public class ExcelReaderX {
                 break;
         }
         return returnValue;
-    }
-
-    /**
-     * 提取每一行中需要的数据，构造成为一个结果数据对象
-     *
-     * 当该行中有单元格的数据为空或不合法时，忽略该行的数据
-     *
-     * @param row 行数据
-     * @return 解析后的行数据对象，行数据错误时返回null
-     */
-    private static Loss convertRowToData(Row row) {
-        Loss resultData = new Loss();
-
-        Cell cell;
-        int cellNum = 0;
-        // date_loss
-        cell = row.getCell(cellNum++);
-        Date date = cell.getDateCellValue();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dateLoss = sdf.format(date);
-        resultData.setDateLoss(dateLoss);
-        // bid
-        cell = row.getCell(cellNum++);
-        String bid = convertCellValueToString(cell);
-        resultData.setBid(bid);
-
-        // did
-        cell = row.getCell(cellNum++);
-        String did = convertCellValueToString(cell);
-        resultData.setDid(did);
-        // userId
-        cell = row.getCell(cellNum++);
-        String userId = convertCellValueToString(cell);
-        resultData.setUserId(userId);
-        // sex
-        cell = row.getCell(cellNum++);
-        String sex = convertCellValueToString(cell);
-        resultData.setSex(sex);
-        // userLevel
-        cell = row.getCell(cellNum++);
-        String userLevel = convertCellValueToString(cell);
-        resultData.setUserLevel(userLevel);
-        // age
-        cell = row.getCell(cellNum++);
-        String age = convertCellValueToString(cell);
-        resultData.setAge(age);
-        // amount
-        cell = row.getCell(cellNum++);
-        Double amount = Double.valueOf(convertCellValueToString(cell));
-        resultData.setAmount(amount);
-        // lossPage
-        cell = row.getCell(cellNum++);
-        String lossPage = convertCellValueToString(cell);
-        resultData.setLossPage(lossPage);
-        // timeLoss
-        cell = row.getCell(cellNum++);
-        String timeLoss = convertCellValueToString(cell);
-        resultData.setTimeLoss(timeLoss);
-        // prodLoss
-        cell = row.getCell(cellNum++);
-        String prodLoss = convertCellValueToString(cell);
-        resultData.setProdLoss(prodLoss);
-        // dateline
-        cell = row.getCell(cellNum++);
-        String dateline = convertCellValueToString(cell);
-        resultData.setDateline(dateline);
-        // rate
-        cell = row.getCell(cellNum++);
-        String rate = convertCellValueToString(cell);
-        resultData.setRate(rate);
-        // isOpen
-        cell = row.getCell(cellNum++);
-        String isOpen = convertCellValueToString(cell);
-        resultData.setIsOpen(isOpen);
-
-        return resultData;
     }
 }

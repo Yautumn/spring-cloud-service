@@ -9,4 +9,10 @@ public class DateUtils {
         String str=sdf.format(date);
         return str;
     }
+
+    public static String dateTimeToString(Date date){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+        String str=sdf.format(date);
+        return str;
+    }
 }
