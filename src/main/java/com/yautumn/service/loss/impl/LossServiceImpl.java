@@ -2,6 +2,7 @@ package com.yautumn.service.loss.impl;
 
 import com.yautumn.common.entity.Loss;
 import com.yautumn.common.utils.poi.ExcelUtils;
+import com.yautumn.common.reflect.BaseService;
 import com.yautumn.dao.loss.LossMapper;
 import com.yautumn.service.loss.LossService;
 import org.apache.poi.ss.usermodel.Cell;
@@ -11,13 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class LossServiceImpl implements LossService {
+public class LossServiceImpl extends BaseService implements LossService {
 
     Logger logger = LoggerFactory.getLogger(LossServiceImpl.class);
 
@@ -30,22 +29,10 @@ public class LossServiceImpl implements LossService {
         List<Loss> lossList = new ArrayList<>();
         rowList.forEach(row -> lossList.add(convertRowToData(row)));
 
-        //List<Loss> lossList = ExcelReader.readExcel(fileName);
-        int pointLimit = 1000;
-        int listSize = lossList.size();
-        int maxSize = listSize - 1;
-//        List<Loss> lossListNew = lossList.stream().skip(pointLimit).limit(pointLimit).parallel().collect(Collectors.toList());
-        List<Loss> lossListNew = new ArrayList<>();
-        for (int i = 0; i < lossList.size(); i++) {
-            int count = 0;
-            lossListNew.add(lossList.get(i));
-            count++;
-            if (pointLimit == lossListNew.size() || count == maxSize){
-                lossMapper.insertForeach(lossListNew);
-                lossListNew.clear();
-            }
+        //批量入库
+        if (!lossList.isEmpty() || lossList.size() != 0) {
+            super.batch(lossList, LossMapper.class, "insertForeach");
         }
-//        lossList.stream().forEach(loss -> insertForeach(loss,pointLimit,maxSize));
     }
 
 
@@ -55,11 +42,11 @@ public class LossServiceImpl implements LossService {
         Cell cell;
         int cellNum = 0;
         // date_loss
-        cell = row.getCell(cellNum++);
+        /*cell = row.getCell(cellNum++);
         Date date = cell.getDateCellValue();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateLoss = sdf.format(date);
-        resultData.setDateLoss(dateLoss);
+        resultData.setDateLoss(dateLoss);*/
         // bid
         cell = row.getCell(cellNum++);
         String bid = ExcelUtils.convertCellValueToString(cell);

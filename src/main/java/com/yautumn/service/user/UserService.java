@@ -1,4 +1,4 @@
-package com.yautumn.service;
+package com.yautumn.service.user;
 
 import com.yautumn.common.entity.User;
 import com.yautumn.request.user.FindUserByIdRequest;

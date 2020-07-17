@@ -1,4 +1,4 @@
-package com.yautumn.service.impl;
+package com.yautumn.service.user.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.yautumn.common.entity.User;
@@ -6,7 +6,7 @@ import com.yautumn.common.utils.redis.JedisUtils;
 import com.yautumn.dao.user.UserMapper;
 import com.yautumn.request.user.FindUserByIdRequest;
 import com.yautumn.request.user.SaveUserRequest;
-import com.yautumn.service.UserService;
+import com.yautumn.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

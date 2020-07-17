@@ -28,6 +28,11 @@ public class CommunicationServiceImpl implements CommunicationService {
 
         rowList.forEach(row -> communicationList.add(convertRowToData(row)));
 
+        //批量入库
+        insertBatch(communicationList);
+    }
+
+    private void insertBatch(List<Communication> communicationList) {
         int pointLimit = 1000;
         int listSize = communicationList.size();
         int maxSize = listSize - 1;
@@ -42,7 +47,6 @@ public class CommunicationServiceImpl implements CommunicationService {
                 communications.clear();
             }
         }
-
     }
 
     private Communication convertRowToData(Row row) {
