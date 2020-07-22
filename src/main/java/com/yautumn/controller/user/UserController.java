@@ -1,4 +1,4 @@
-package com.yautumn.controller;
+package com.yautumn.controller.user;
 
 import com.yautumn.common.entity.User;
 import com.yautumn.common.utils.ResultUtil;

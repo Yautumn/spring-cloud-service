@@ -1,8 +1,10 @@
-package com.yautumn.controller;
+package com.yautumn.controller.file;
 
 import com.yautumn.common.utils.ResultUtil;
+import com.yautumn.service.file.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,8 @@ import java.util.List;
 public class FileController {
     Logger logger = LoggerFactory.getLogger(FileController.class);
 
-    @Value("${filePath}")
-    private String filePath;
+    @Autowired
+    private FileService fileService;
 
     /**
      * 文件上传
@@ -30,19 +32,8 @@ public class FileController {
      */
     @PostMapping("/upload")
     public ResultUtil uploadFile(@RequestParam("file") MultipartFile file){
-        if (file.isEmpty()) {
-            return ResultUtil.error("上传失败，请选择文件");
-        }
-        String fileName = file.getOriginalFilename();
-        //文件上传路径
-        File dest = new File(filePath + fileName);
-        try {
-            file.transferTo(dest);
-            return ResultUtil.success("上传成功");
-        } catch (IOException e) {
-            logger.error(e.toString(), e);
-        }
-        return ResultUtil.error("上传失败！");
+        String data = fileService.fileUpload(file);
+        return ResultUtil.success(data);
     }
 
     /**
@@ -51,11 +42,7 @@ public class FileController {
      */
     @PostMapping("/file/list")
     public ResultUtil getFileList(){
-        String[] fileArr=new File(filePath).list();
-        List<String> files = new ArrayList<>();
-        for (int i = 0; i < fileArr.length; i++) {
-            files.add(filePath + fileArr[i].toString());
-        }
+        List<String> files = fileService.getFileList();
         return ResultUtil.success(files);
     }
 }

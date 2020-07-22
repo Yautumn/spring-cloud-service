@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.TransforEffect">
     <result column="bid" jdbcType="VARCHAR" property="bid" />
     <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="incoming_time" jdbcType="VARCHAR" property="incomingTime" />
     <result column="incoming_page" jdbcType="VARCHAR" property="incomingPage" />
     <result column="incoming_entrance" jdbcType="VARCHAR" property="incomingEntrance" />
     <result column="is_new" jdbcType="VARCHAR" property="isNew" />
@@ -17,34 +18,35 @@
     <result column="t_total_amount" jdbcType="VARCHAR" property="tTotalAmount" />
   </resultMap>
   <insert id="insert" parameterType="com.yautumn.common.entity.TransforEffect">
-    insert into t_transfor_effect (bid, did, incoming_page, 
-      incoming_entrance, is_new, incoming_position, 
-      behavior, is_success, first_amount, 
-      total_amount, t_is_success, t_first_amount, 
-      t_total_amount)
-    values (#{bid,jdbcType=VARCHAR}, #{did,jdbcType=VARCHAR}, #{incomingPage,jdbcType=VARCHAR}, 
-      #{incomingEntrance,jdbcType=VARCHAR}, #{isNew,jdbcType=VARCHAR}, #{incomingPosition,jdbcType=DOUBLE}, 
-      #{behavior,jdbcType=VARCHAR}, #{isSuccess,jdbcType=VARCHAR}, #{firstAmount,jdbcType=INTEGER}, 
-      #{totalAmount,jdbcType=INTEGER}, #{tIsSuccess,jdbcType=VARCHAR}, #{tFirstAmount,jdbcType=INTEGER}, 
-      #{tTotalAmount,jdbcType=VARCHAR})
+    insert into t_transfor_effect (bid, did, incoming_time, 
+      incoming_page, incoming_entrance, is_new, 
+      incoming_position, behavior, is_success, 
+      first_amount, total_amount, t_is_success, 
+      t_first_amount, t_total_amount)
+    values (#{bid,jdbcType=VARCHAR}, #{did,jdbcType=VARCHAR}, #{incomingTime,jdbcType=VARCHAR}, 
+      #{incomingPage,jdbcType=VARCHAR}, #{incomingEntrance,jdbcType=VARCHAR}, #{isNew,jdbcType=VARCHAR}, 
+      #{incomingPosition,jdbcType=DOUBLE}, #{behavior,jdbcType=VARCHAR}, #{isSuccess,jdbcType=VARCHAR}, 
+      #{firstAmount,jdbcType=INTEGER}, #{totalAmount,jdbcType=INTEGER}, #{tIsSuccess,jdbcType=VARCHAR}, 
+      #{tFirstAmount,jdbcType=INTEGER}, #{tTotalAmount,jdbcType=VARCHAR})
   </insert>
 
   <insert id="insertForeach" parameterType="com.yautumn.common.entity.TransforEffect">
-    insert into t_transfor_effect (bid, did, incoming_page,
-      incoming_entrance, is_new, incoming_position,
-      behavior, is_success, first_amount,
-      total_amount, t_is_success, t_first_amount,
-      t_total_amount)
+    insert into t_transfor_effect (bid, did, incoming_time,
+    incoming_page, incoming_entrance, is_new,
+    incoming_position, behavior, is_success,
+    first_amount, total_amount, t_is_success,
+    t_first_amount, t_total_amount)
     values
     <foreach collection="list" item="item" index="index" separator=",">
-    (#{item.bid,jdbcType=VARCHAR}, #{item.did,jdbcType=VARCHAR}, #{item.incomingPage,jdbcType=VARCHAR},
-      #{item.incomingEntrance,jdbcType=VARCHAR}, #{item.isNew,jdbcType=VARCHAR}, #{item.incomingPosition,jdbcType=DOUBLE},
-      #{item.behavior,jdbcType=VARCHAR}, #{item.isSuccess,jdbcType=VARCHAR}, #{item.firstAmount,jdbcType=INTEGER},
-      #{item.totalAmount,jdbcType=INTEGER}, #{item.tIsSuccess,jdbcType=VARCHAR}, #{item.tFirstAmount,jdbcType=INTEGER},
-      #{item.tTotalAmount,jdbcType=VARCHAR})
+      (#{item.bid,jdbcType=VARCHAR}, #{item.did,jdbcType=VARCHAR}, #{item.incomingTime,jdbcType=VARCHAR},
+      #{item.incomingPage,jdbcType=VARCHAR}, #{item.incomingEntrance,jdbcType=VARCHAR}, #{item.isNew,jdbcType=VARCHAR},
+      #{item.incomingPosition,jdbcType=DOUBLE}, #{item.behavior,jdbcType=VARCHAR}, #{item.isSuccess,jdbcType=VARCHAR},
+      #{item.firstAmount,jdbcType=INTEGER}, #{item.totalAmount,jdbcType=INTEGER}, #{item.tIsSuccess,jdbcType=VARCHAR},
+      #{item.tFirstAmount,jdbcType=INTEGER}, #{item.tTotalAmount,jdbcType=VARCHAR})
     </foreach>
     ON DUPLICATE KEY UPDATE
-    did=values(did)
+    did=values(did),
+    incoming_time=values(incoming_time)
   </insert>
 
   <insert id="insertSelective" parameterType="com.yautumn.common.entity.TransforEffect">
@@ -55,6 +57,9 @@
       </if>
       <if test="did != null">
         did,
+      </if>
+      <if test="incomingTime != null">
+        incoming_time,
       </if>
       <if test="incomingPage != null">
         incoming_page,
@@ -96,6 +101,9 @@
       </if>
       <if test="did != null">
         #{did,jdbcType=VARCHAR},
+      </if>
+      <if test="incomingTime != null">
+        #{incomingTime,jdbcType=VARCHAR},
       </if>
       <if test="incomingPage != null">
         #{incomingPage,jdbcType=VARCHAR},

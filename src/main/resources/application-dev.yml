@@ -35,4 +35,5 @@ mybatis:
 
 redisprefix: demo-user-
 
-filePath: /Users/yautumn/fileupload/
+fileUploadPath: /Users/yautumn/fileupload/
+fileCreatePath: /Users/yautumn/filecreate/

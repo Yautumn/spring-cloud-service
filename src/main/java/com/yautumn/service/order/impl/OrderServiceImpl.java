@@ -1,6 +1,7 @@
 package com.yautumn.service.order.impl;
 
 import com.yautumn.common.entity.Order;
+import com.yautumn.common.reflect.BaseService;
 import com.yautumn.common.utils.date.DateUtils;
 import com.yautumn.common.utils.poi.ExcelUtils;
 import com.yautumn.dao.order.OrderMapper;
@@ -10,16 +11,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrderServiceImpl implements OrderService {
+@Service
+public class OrderServiceImpl  extends BaseService implements OrderService {
     Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
-
-    @Autowired
-    private OrderMapper orderMapper;
 
     @Override
     public void readExcel(String fileName) {
@@ -28,19 +28,8 @@ public class OrderServiceImpl implements OrderService {
 
         rowList.forEach(row -> orderList.add(convertRowToData(row)));
 
-        int pointLimit = 1000;
-        int listSize = orderList.size();
-        int maxSize = listSize - 1;
-
-        List<Order> orders = new ArrayList<>();
-        for (int i = 0; i < orderList.size(); i++) {
-            int count = 0;
-            orders.add(orderList.get(i));
-            count++;
-            if (pointLimit == orders.size() || count == maxSize){
-                orderMapper.insertForeach(orders);
-                orders.clear();
-            }
+        if (!orderList.isEmpty() || orderList.size() != 0){
+            super.batch(orderList,OrderMapper.class,"insertForeach");
         }
     }
 
@@ -186,19 +175,22 @@ public class OrderServiceImpl implements OrderService {
         order.setCreater(creater);
 
         cell = row.getCell(cellNum++);
-        Date createDate = cell.getDateCellValue();
-        String createTime = DateUtils.dateTimeToString(createDate);
-        order.setCreateTime(createTime);
+        String createTimeStr = cell.getStringCellValue();
+//        Date createDate = cell.getDateCellValue();
+//        String createTime = DateUtils.dateTimeToString(createDate);
+        order.setCreateTime(createTimeStr);
 
         cell = row.getCell(cellNum++);
-        Date updateDate = cell.getDateCellValue();
-        String updateTime = DateUtils.dateTimeToString(updateDate);
-        order.setUpdateTime(updateTime);
+//        Date updateDate = cell.getDateCellValue();
+//        String updateTime = DateUtils.dateTimeToString(updateDate);
+        String updateTimeStr = cell.getStringCellValue();
+        order.setUpdateTime(updateTimeStr);
 
         cell = row.getCell(cellNum++);
-        Date endDate = cell.getDateCellValue();
-        String endTime = DateUtils.dateTimeToString(endDate);
-        order.setEndTime(endTime);
+//        Date endDate = cell.getDateCellValue();
+//        String endTime = DateUtils.dateTimeToString(endDate);
+        String endTimeStr = cell.getStringCellValue();
+        order.setEndTime(endTimeStr);
 
         cell = row.getCell(cellNum++);
         String bankName = ExcelUtils.convertCellValueToString(cell);

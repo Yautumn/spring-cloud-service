@@ -13,6 +13,12 @@ public class BaseService {
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
+    /**
+     * 通过反射调用mapper中的方法
+     * @param list
+     * @param clazz
+     * @param methodName
+     */
     public void batch(List<?> list, Class clazz,String methodName) {
         try {
             Class c = Class.forName(clazz.getName());

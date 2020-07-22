@@ -44,7 +44,8 @@
       #{item.isWorkTime,jdbcType=VARCHAR})
     </foreach>
     ON DUPLICATE KEY UPDATE
-    did=values(did)
+    bid=values(bid),
+    create_time=values(create_time)
   </insert>
 
   <insert id="insertSelective" parameterType="com.yautumn.common.entity.Robot">

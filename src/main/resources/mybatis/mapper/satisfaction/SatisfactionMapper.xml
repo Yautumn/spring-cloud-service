@@ -87,7 +87,8 @@
       #{item.isUpdate,jdbcType=VARCHAR}, #{item.createPost,jdbcType=VARCHAR})
     </foreach>
     ON DUPLICATE KEY UPDATE
-    did=values(did)
+    bid=values(bid),
+    date_time=values(date_time)
   </insert>
 
 </mapper>

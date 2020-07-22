@@ -1,6 +1,7 @@
 package com.yautumn.service.communication.impl;
 
 import com.yautumn.common.entity.Communication;
+import com.yautumn.common.reflect.BaseService;
 import com.yautumn.common.utils.date.DateUtils;
 import com.yautumn.common.utils.poi.ExcelUtils;
 import com.yautumn.dao.communication.CommunicationMapper;
@@ -10,45 +11,36 @@ import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CommunicationServiceImpl implements CommunicationService {
+@Service
+public class CommunicationServiceImpl extends BaseService implements CommunicationService {
     Logger logger = LoggerFactory.getLogger(CommunicationServiceImpl.class);
-
-    @Autowired
-    private CommunicationMapper communicationMapper;
 
     @Override
     public void readExcel(String fileName) {
+
+        //读取excel文件内容
         List<Row> rowList = ExcelUtils.readExcel(fileName);
         List<Communication> communicationList = new ArrayList<>();
 
+        //将文件内容放入communicationList中
         rowList.forEach(row -> communicationList.add(convertRowToData(row)));
 
-        //批量入库
-        insertBatch(communicationList);
-    }
-
-    private void insertBatch(List<Communication> communicationList) {
-        int pointLimit = 1000;
-        int listSize = communicationList.size();
-        int maxSize = listSize - 1;
-
-        List<Communication> communications = new ArrayList<>();
-        for (int i = 0; i < communicationList.size(); i++) {
-            int count = 0;
-            communications.add(communicationList.get(i));
-            count++;
-            if (pointLimit == communications.size() || count == maxSize){
-                communicationMapper.insertForeach(communications);
-                communications.clear();
-            }
+        if (!communicationList.isEmpty() || communicationList.size() != 0){
+            super.batch(communicationList, CommunicationMapper.class,"insertForeach");
         }
     }
 
+    /**
+     * 将excel内容转化成实体对象；依次获取单元格内容
+     * @param row
+     * @return
+     */
     private Communication convertRowToData(Row row) {
         Communication communication = new Communication();
 
@@ -100,27 +92,32 @@ public class CommunicationServiceImpl implements CommunicationService {
         communication.setIsSolve(isSolve);
 
         cell = row.getCell(cellNum++);
-        Date startDate = cell.getDateCellValue();
-        String startTime = DateUtils.dateTimeToString(startDate);
-        communication.setStartTime(startTime);
+        String startDateStr = cell.getStringCellValue();
+//        Date startDate = cell.getDateCellValue();
+//        String startTime = DateUtils.dateTimeToString(startDate);
+        communication.setStartTime(startDateStr);
 
         cell = row.getCell(cellNum++);
-        Date endDate = cell.getDateCellValue();
-        String endTime = DateUtils.dateTimeToString(endDate);
-        communication.setEndTime(endTime);
+        String endDateStr = cell.getStringCellValue();
+//        Date endDate = cell.getDateCellValue();
+//        String endTime = DateUtils.dateTimeToString(endDate);
+        communication.setEndTime(endDateStr);
 
         cell = row.getCell(cellNum++);
-        Integer callTime = Integer.parseInt(ExcelUtils.convertCellValueToString(cell));
-        communication.setCallTime(callTime);
+        if (null != cell.getStringCellValue() && "" != cell.getStringCellValue()) {
+            Integer callTime = Integer.parseInt(ExcelUtils.convertCellValueToString(cell));
+            communication.setCallTime(callTime);
+        }
 
         cell = row.getCell(cellNum++);
         String creater = ExcelUtils.convertCellValueToString(cell);
         communication.setCreater(creater);
 
         cell = row.getCell(cellNum++);
-        Date createDate = cell.getDateCellValue();
-        String createTime = DateUtils.dateTimeToString(createDate);
-        communication.setCreateTime(createTime);
+        String creatDateStr = cell.getStringCellValue();
+//        Date createDate = cell.getDateCellValue();
+//        String createTime = DateUtils.dateTimeToString(createDate);
+        communication.setCreateTime(creatDateStr);
 
         cell = row.getCell(cellNum++);
         String orderId = ExcelUtils.convertCellValueToString(cell);

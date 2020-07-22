@@ -52,8 +52,7 @@
       #{item.createTime,jdbcType=VARCHAR}, #{item.orderId,jdbcType=VARCHAR})
     </foreach>
       ON DUPLICATE KEY UPDATE
-      create_time=values(create_time),
-      did=values(did)
+      comm_id=values(comm_id)
   </insert>
 
   <insert id="insertSelective" parameterType="com.yautumn.common.entity.Communication">

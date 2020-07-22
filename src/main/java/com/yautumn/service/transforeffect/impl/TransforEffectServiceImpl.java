@@ -1,6 +1,7 @@
 package com.yautumn.service.transforeffect.impl;
 
 import com.yautumn.common.entity.TransforEffect;
+import com.yautumn.common.reflect.BaseService;
 import com.yautumn.common.utils.poi.ExcelUtils;
 import com.yautumn.dao.transforeffect.TransforEffectMapper;
 import com.yautumn.service.transforeffect.TransforEffectService;
@@ -8,16 +9,14 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransforEffectServiceImpl implements TransforEffectService {
+@Service
+public class TransforEffectServiceImpl extends BaseService implements TransforEffectService {
     Logger logger = LoggerFactory.getLogger(TransforEffectServiceImpl.class);
-
-    @Autowired
-    private TransforEffectMapper transforEffectMapper;
 
     @Override
     public void readExcel(String fileName) {
@@ -26,19 +25,8 @@ public class TransforEffectServiceImpl implements TransforEffectService {
 
         rowList.forEach(row -> transforEffectList.add(convertRowToData(row)));
 
-        int pointLimit = 1000;
-        int listSize = transforEffectList.size();
-        int maxSize = listSize - 1;
-
-        List<TransforEffect> transforEffects = new ArrayList<>();
-        for (int i = 0; i < transforEffectList.size(); i++) {
-            int count = 0;
-            transforEffects.add(transforEffectList.get(i));
-            count++;
-            if (pointLimit == transforEffects.size() || count == maxSize){
-                transforEffectMapper.insertForeach(transforEffects);
-                transforEffects.clear();
-            }
+        if (!transforEffectList.isEmpty() || transforEffectList.size() != 0){
+            super.batch(transforEffectList, TransforEffectMapper.class,"insertForeach");
         }
 
     }
@@ -50,12 +38,16 @@ public class TransforEffectServiceImpl implements TransforEffectService {
         int cellNum = 0;
 
         cell = row.getCell(cellNum++);
+        String did = ExcelUtils.convertCellValueToString(cell);
+        transforEffect.setDid(did);
+
+        cell = row.getCell(cellNum++);
         String bid = ExcelUtils.convertCellValueToString(cell);
         transforEffect.setBid(bid);
 
         cell = row.getCell(cellNum++);
-        String did = ExcelUtils.convertCellValueToString(cell);
-        transforEffect.setDid(did);
+        String incomingTime = ExcelUtils.convertCellValueToString(cell);
+        transforEffect.setIncomingTime(incomingTime);
 
         cell = row.getCell(cellNum++);
         String incomingPage = ExcelUtils.convertCellValueToString(cell);

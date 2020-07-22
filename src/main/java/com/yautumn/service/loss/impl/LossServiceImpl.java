@@ -10,15 +10,22 @@ import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
 public class LossServiceImpl extends BaseService implements LossService {
 
     Logger logger = LoggerFactory.getLogger(LossServiceImpl.class);
+
+    @Value("${fileCreatePath}")
+    private String fileCreatePath;
 
     @Autowired
     private LossMapper lossMapper;
@@ -33,6 +40,24 @@ public class LossServiceImpl extends BaseService implements LossService {
         if (!lossList.isEmpty() || lossList.size() != 0) {
             super.batch(lossList, LossMapper.class, "insertForeach");
         }
+    }
+
+    @Override
+    public File writeExcel() {
+        //To-Do 从数据库获取数据信息
+
+        LinkedHashMap<String,String> header = new LinkedHashMap<String,String>();
+        List results = new ArrayList();
+        String fileName = "test";
+
+        //将信息写入Excel
+        File file = createExcelFile(results,header,fileCreatePath,fileName);
+
+        return file;
+    }
+
+    private File createExcelFile(List results, LinkedHashMap<String, String> header, String fileCreatePath, String fileName) {
+        return null;
     }
 
 

@@ -52,6 +52,54 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="level" jdbcType="VARCHAR" property="level" />
   </resultMap>
+
+  <!--  主动进线明细关系映射-->
+  <resultMap id="callDatailResult" type="com.yautumn.mapper.resultmap.active.CallDetailMap">
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="event1" jdbcType="VARCHAR" property="event1" />
+    <result column="event2" jdbcType="VARCHAR" property="event2" />
+    <result column="event3" jdbcType="VARCHAR" property="event3" />
+    <result column="event4" jdbcType="VARCHAR" property="event4" />
+    <result column="event5" jdbcType="VARCHAR" property="event5" />
+    <result column="creat_job" jdbcType="VARCHAR" property="creatJob" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="comm_id" jdbcType="VARCHAR" property="commId" />
+    <result column="c_creater" jdbcType="VARCHAR" property="cCreater" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="call_time" jdbcType="INTEGER" property="callTime" />
+    <result column="incoming_page" jdbcType="VARCHAR" property="incomingPage" />
+    <result column="incoming_entrance" jdbcType="VARCHAR" property="incomingEntrance" />
+    <result column="behavior" jdbcType="VARCHAR" property="behavior" />
+    <result column="is_success" jdbcType="VARCHAR" property="isSuccess" />
+    <result column="t_is_success" jdbcType="VARCHAR" property="tIsSuccess" />
+  </resultMap>
+
+  <!--  回呼拨打明细关系映射-->
+  <resultMap id="fallCallBackDetailResult" type="com.yautumn.mapper.resultmap.loss.FallCallBackDetailMap">
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="did" jdbcType="VARCHAR" property="did" />
+    <result column="event1" jdbcType="VARCHAR" property="event1" />
+    <result column="event2" jdbcType="VARCHAR" property="event2" />
+    <result column="event3" jdbcType="VARCHAR" property="event3" />
+    <result column="event4" jdbcType="VARCHAR" property="event4" />
+    <result column="event5" jdbcType="VARCHAR" property="event5" />
+    <result column="creat_job" jdbcType="VARCHAR" property="creatJob" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="call_time" jdbcType="INTEGER" property="callTime" />
+    <result column="incoming_page" jdbcType="VARCHAR" property="incomingPage" />
+    <result column="incoming_entrance" jdbcType="VARCHAR" property="incomingEntrance" />
+    <result column="behavior" jdbcType="VARCHAR" property="behavior" />
+    <result column="is_success" jdbcType="VARCHAR" property="isSuccess" />
+    <result column="t_is_success" jdbcType="VARCHAR" property="tIsSuccess" />
+  </resultMap>
+
+  <!-- 保存对象 -->
   <insert id="insert" parameterType="com.yautumn.common.entity.Order">
     insert into t_order (order_id, contacts, province, 
       city, consumer_name, did, 
@@ -89,6 +137,7 @@
       #{level,jdbcType=VARCHAR})
   </insert>
 
+  <!-- 批量保存工单数据 -->
   <insert id="insertForeach" parameterType="com.yautumn.common.entity.Order">
     insert into t_order (order_id, contacts, province,
       city, consumer_name, did,
@@ -128,8 +177,85 @@
       #{item.level,jdbcType=VARCHAR})
     </foreach>
     ON DUPLICATE KEY UPDATE
-    did=values(did)
+    did=values(did),
+    create_time=values(create_time)
   </insert>
+<!--  主动进线明细-->
+  <select id="callDetail" resultMap="callDatailResult" parameterType="com.yautumn.parameter.request.local.CallDetailRequest">
+    SELECT
+	tor.order_id AS order_id,
+	tor.did AS did,
+	tor.event1 AS event1,
+	tor.event2 AS event2,
+	tor.event3 AS event3,
+	tor.event4 AS event4,
+	tor.event5 AS event5,
+	tor.creat_job AS creat_job,
+	tor.creater AS creater,
+	tor.create_time AS create_time,
+	tor.`level` AS `level`,
+	tc.comm_id AS comm_id,
+	tc.creater AS c_creater,
+	tc.start_time AS start_time,
+	tc.call_time AS call_time,
+	tte.incoming_page AS incoming_page,
+	tte.incoming_entrance AS incoming_entrance,
+	tte.behavior AS behavior,
+	tte.is_success AS is_success,
+	tte.t_is_success AS t_is_success
+FROM
+	t_order AS tor
+	LEFT JOIN
+	t_communication AS tc
+	ON
+		(
+			tc.did = tor.did AND
+			tc.create_time = tor.create_time
+		)
+	LEFT JOIN
+	t_transfor_effect AS tte
+	ON
+		tte.did = tor.did
+	where
+	STR_TO_DATE(tor.create_time,'%Y-%m-%d') BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d') AND STR_TO_DATE(#{endDate},'%Y-%m-%d')
+  </select>
+
+<!--  回呼拨打明细-->
+  <select id="fallCallBackDetail" resultMap="fallCallBackDetailResult">
+    SELECT
+	tor.order_id AS order_id,
+	tor.did AS did,
+	tor.event1 AS event1,
+	tor.event2 AS event2,
+	tor.event3 AS event3,
+	tor.event4 AS event4,
+	tor.event5 AS event5,
+	tor.creat_job AS creat_job,
+	tor.creater AS creater,
+	tor.create_time AS create_time,
+	tor.`level` AS `level`,
+	tc.creater AS c_creater,
+	tc.start_time AS start_time,
+	tc.call_time AS call_time,
+	tte.incoming_page AS incoming_page,
+	tte.incoming_entrance AS incoming_entrance,
+	tte.behavior AS behavior,
+	tte.is_success AS is_success,
+	tte.t_is_success AS t_is_success
+FROM
+	t_order AS tor
+	LEFT JOIN
+	t_communication AS tc
+	ON
+		(
+			tc.did = tor.did AND
+			tc.create_time = tor.create_time
+		)
+	LEFT JOIN
+	t_transfor_effect AS tte
+	ON
+		tte.did = tor.did
+  </select>
 
   <insert id="insertSelective" parameterType="com.yautumn.common.entity.Order">
     insert into t_order

@@ -5,6 +5,8 @@ public class TransforEffect {
 
     private String did;
 
+    private String incomingTime;
+
     private String incomingPage;
 
     private String incomingEntrance;
@@ -41,6 +43,14 @@ public class TransforEffect {
 
     public void setDid(String did) {
         this.did = did == null ? null : did.trim();
+    }
+
+    public String getIncomingTime() {
+        return incomingTime;
+    }
+
+    public void setIncomingTime(String incomingTime) {
+        this.incomingTime = incomingTime == null ? null : incomingTime.trim();
     }
 
     public String getIncomingPage() {
