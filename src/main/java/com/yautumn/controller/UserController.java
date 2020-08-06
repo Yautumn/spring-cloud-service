@@ -2,8 +2,8 @@ package com.yautumn.controller;
 
 import com.yautumn.common.entity.User;
 import com.yautumn.common.utils.ResultUtil;
-import com.yautumn.request.user.FindUserByIdRequest;
-import com.yautumn.request.user.SaveUserRequest;
+import com.yautumn.parameter.request.local.user.FindUserByIdRequest;
+import com.yautumn.parameter.request.local.user.SaveUserRequest;
 import com.yautumn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
