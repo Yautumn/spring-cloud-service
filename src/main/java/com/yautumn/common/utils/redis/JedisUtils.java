@@ -56,4 +56,9 @@ public class JedisUtils {
         sb.append(id);
         return sb.toString();
     }
+
+    public boolean delete(String id){
+        boolean flag = redisTemplate.delete(id);
+        return flag;
+    }
 }

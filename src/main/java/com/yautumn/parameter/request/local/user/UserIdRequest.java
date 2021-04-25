@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FindUserByIdRequest {
+public class UserIdRequest {
     private Integer id;
 }
