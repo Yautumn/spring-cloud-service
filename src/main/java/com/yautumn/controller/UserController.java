@@ -16,24 +16,36 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /*
+        user save method
+     */
     @PostMapping("/save")
     public ResultUtil saveUser(@RequestBody SaveUserRequest saveUserRequest){
         int value = userService.saveUser(saveUserRequest);
         return ResultUtil.success();
     }
 
+    /*
+        user find by id method
+     */
     @GetMapping("/find/id")
     public ResultUtil findUserById(@RequestBody UserIdRequest userIdRequest){
         User user = userService.getUserById(userIdRequest);
         return ResultUtil.success(user);
     }
 
+    /*
+        user update by id method
+     */
     @PostMapping("/upadte/id")
     public ResultUtil updateUserById(@RequestBody UpadteUserRequest upadteUserRequest){
         int value = userService.updateUserById(upadteUserRequest);
         return ResultUtil.success();
     }
 
+    /*
+        user delete by id method
+     */
     @DeleteMapping("/del/id")
     public ResultUtil deleteUserById(@RequestBody UserIdRequest userIdRequest){
         int val = userService.deleteUserById(userIdRequest);

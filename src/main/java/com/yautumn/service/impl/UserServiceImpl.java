@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
     @Value("${redisprefix}")
     private String keyPre;
 
+    /**
+     * user save method implement
+     * @param saveUserRequest
+     * @return
+     */
     @Override
     public int saveUser(SaveUserRequest saveUserRequest) {
         User user = new User();
@@ -37,6 +42,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.insert(user);
 
     }
+
+    /**
+     * user find by id method implement
+     * @param userIdRequest
+     * @return
+     */
     public User getUserById(UserIdRequest userIdRequest){
         User user;
         boolean flag = jedisUtils.hasKey(this.getRedisKey(userIdRequest.getId()));
@@ -50,6 +61,11 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
+     * user update by id method implement
+     * @param upadteUserRequest
+     * @return
+     */
     public int updateUserById(UpadteUserRequest upadteUserRequest){
         UserIdRequest userIdRequest = new UserIdRequest();
         userIdRequest.setId(upadteUserRequest.getId());
@@ -61,6 +77,11 @@ public class UserServiceImpl implements UserService {
         return val;
     }
 
+    /**
+     * user delete by id method implement
+     * @param userIdRequest
+     * @return
+     */
     public int deleteUserById(UserIdRequest userIdRequest){
         int val = userMapper.deleteByPrimaryKey(userIdRequest.getId());
         boolean flag = jedisUtils.hasKey(this.getRedisKey(userIdRequest.getId()));

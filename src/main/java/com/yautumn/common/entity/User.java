@@ -2,15 +2,25 @@ package com.yautumn.common.entity;
 
 import java.util.Date;
 
+/**
+ *
+ * 测试实体类
+ */
 public class User {
+
+    //id
     private Integer id;
 
+    //用户名
     private String userName;
 
+    //密码
     private String userPassword;
 
+    //性别
     private String userSex;
 
+    //生日
     private Date userBirthday;
 
     public Integer getId() {

@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.Date;
 
+/**
+ * save user request parameter
+ */
 @Getter
 @Setter
 public class SaveUserRequest {

@@ -11,6 +11,7 @@ public class JedisUtils {
     @Autowired
     private RedisTemplate<Object,Object> redisTemplate;
 
+
     public boolean expire(String key, long time){
         try {
             if (time>0){
@@ -27,6 +28,9 @@ public class JedisUtils {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 
+    /*
+        判断某个KEY在redis中是否存在
+     */
     public boolean hasKey(String key){
         try {
             return redisTemplate.hasKey(key);
@@ -36,10 +40,16 @@ public class JedisUtils {
         }
     }
 
+    /*
+        获取redis缓存数据
+     */
     public Object getObject(String key){
         return key == null?null:redisTemplate.opsForValue().get(key);
     }
 
+    /*
+        存储数据
+     */
     public boolean setObject(String key,Object value){
         try {
             redisTemplate.opsForValue().set(key,value);
@@ -50,6 +60,9 @@ public class JedisUtils {
         }
     }
 
+    /*
+        拼接获取redis key的字符串
+     */
     public String getKeyStr(String pre,Integer id){
         StringBuffer sb = new StringBuffer();
         sb.append(pre);
@@ -57,6 +70,9 @@ public class JedisUtils {
         return sb.toString();
     }
 
+    /*
+        根据id删除redis中的数据
+     */
     public boolean delete(String id){
         boolean flag = redisTemplate.delete(id);
         return flag;
